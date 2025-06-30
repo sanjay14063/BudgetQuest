@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudgetQuest - Your Budgeting Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="./Images/mascottt.png">
+</head>
+<body>
+
+    <header>
+        <h1>BudgetQuest</h1>
+        <p>Track your finances, build your financial empire, while having a blast!</p>
+    </header>
+    <section id="user-setup-section" style="display: none;">  
+        <div class="setup-container">
+            <h2>Welcome to BudgetQuest!</h2>
+            <p>Let's get you set up to master your money.</p>
+                <div class="card" id="budgeting-intro">
+                <h3>What is Budgeting?</h3>
+                <p>Budgeting is simply creating a plan for your money. It's about knowing how much money you have coming in (income) and how much is going out (expenses).</p>
+                <p>By understanding your cash flow, you gain control over your finances, make informed spending decisions, and work towards your financial goals, like building your savings or paying off debt.</p>
+                <p>With the BudgetQuest app, you'll visualize your financial progress as your financial city grows!</p>
+                <p>You'll also have access to basic metrics to track your progress.</p>
+                <p>Let's set up your profile to begin your journey!</p>
+                </div>
+            <form id="user-setup-form">
+                <div class="form-group">
+                    <label for="user-name">Your Name:</label>
+                    <input type="text" id="user-name" placeholder="e.g., Alex" required>
+                </div>
+                <div class="form-group">
+                    <label for="monthly-income">Monthly Income (after tax) in USD($), approx:</label>
+                    <input type="number" id="monthly-income" placeholder="e.g., 2500.00" step="50.00" required>
+                </div>
+                <div class="form-group">
+                    <label for="savings-goal">Monthly Savings Goal in USD($):</label>
+                    <input type="number" id="savings-goal" placeholder="e.g., 500.00" step="0.01">
+                </div>
+                <button type="submit" id="complete-setup-btn">Complete Setup</button>
+            </form>
+        </div>
+    </section>
+    <main id="main-app-content">
+        <img id="mascot-icon" src="./Images/mascottt.png" alt="BudgetQuest Mascot" draggable="true">
+        <section id="dashboard">
+            <h2 id="dashboard-heading">Your Financial Summary</h2>
+            <div class="summary-cards">
+                <div class="card">
+                    <h3>Income per month</h3>
+                    <p id="total-income">$0.00</p>
+                </div>
+                <div class="card">
+                    <h3>Expenses(this month)</h3>
+                    <p id="total-expenses">$0.00</p>
+                </div>
+                <div class="card">
+                    <h3>Remaining Budget</h3>
+                    <p id="remaining-budget">$0.00</p>
+                </div>
+            </div>
+            <section class="card financial-tips-section">
+                <h3>💰 Financial Tip</h3>
+                <p id="financial-tip-message">Stay informed and make smart choices!</p>
+            </section>
+            <button id="set-category-budgets-btn" class="main-action-btn">Set Category Budgets</button>
+
+            <div class="category-budgets-summary">
+                <h3>Category Spending Overview</h3>
+                <div id="category-summary-list">
+                    <div class="category-item placeholder-category">
+                        <p>Set your budgets to see them here!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="add-transaction">
+            <h2>Add New Transaction</h2>
+            <form id="transaction-form">
+                <div class="form-group">
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" placeholder="e.g., 50.00" step="5.00" required>
+                </div>
+                <div class="form-group">
+                    <label for="type">Type:</label>
+                    <select id="type" required>
+                        <option value="expense">Expense</option>
+                        <option value="income">Income</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <select id="category" required>
+                        <option value="">Select Category</option>
+                        <option value="Food">Food</option>
+                        <option value="Rent">Rent</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Salary">Salary</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description (Optional):</label>
+                    <input type="text" id="description" placeholder="e.g., Dinner with friends">
+                </div>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" required>
+                </div>
+                <button type="submit" id="add-transaction-btn">Add Transaction</button>
+            </form>
+        </section>
+
+        <section id="game-progress">
+            <h2>Your Quest Progress</h2>
+            <div class="game-elements">
+                <div class="card">
+                    <h3 id="points-heading">Points</h3>
+                    <p id="game-points">0</p>
+                </div>
+                <div class="card">
+                    <h3 id="badges-heading">Badges</h3>
+                    <div id="badges-container">
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 id="financial-city-heading">Your Financial City</h3>
+                    <p>Level: <span id="city-level">1</span></p>
+                    <p>City Level: <span id="city-level">1</span></p>
+                    <p id="city-progress-display">Earn 50 more points for a Town!</p>
+                    <img id="financial-city-img" alt="Your Financial City">
+                </div>
+            </div>
+        </section>
+        
+        <section class="card quiz-button-section">
+            <h3 id="test-knowledge">Test Your Knowledge!</h3>
+            <button id="take-quiz-btn" class="action-btn">Take a Quick Quiz</button>
+        </section>
+        <section id="transaction-history">
+            <h2>Transaction History</h2>
+            <ul id="transactions-list">
+                <li class="placeholder-transaction">Your transactions will appear here!</li>
+            </ul>
+        </section>
+        <section id="learning-tips-section">
+            <h2 id="learning-heading1">Learning Tips</h2>
+        <div id="tips-container"></div>
+</section>
+
+    </main>
+    <section id="category-budget-settings" class="overlay-section">
+        <div class="settings-container">
+            <h2>Set Your Category Budgets</h2>
+            <p>Allocate a maximum amount you want to spend in each category per month.</p>
+            <form id="category-budget-form">
+                <div class="form-group">
+                    <label for="budget-food">Food:</label>
+                    <input type="number" id="budget-food" placeholder="e.g., 300" step="1.00">
+                </div>
+                <div class="form-group">
+                    <label for="budget-rent">Rent:</label>
+                    <input type="number" id="budget-rent" placeholder="e.g., 1000" step="1.00">
+                </div>
+                <div class="form-group">
+                    <label for="budget-transport">Transport:</label>
+                    <input type="number" id="budget-transport" placeholder="e.g., 150" step="1.00">
+                </div>
+                <div class="form-group">
+                    <label for="budget-utilities">Utilities:</label>
+                    <input type="number" id="budget-utilities" placeholder="e.g., 100" step="1.00">
+                </div>
+                <div class="form-group">
+                    <label for="budget-entertainment">Entertainment:</label>
+                    <input type="number" id="budget-entertainment" placeholder="e.g., 50" step="1.00">
+                </div>
+                <div class="form-group">
+                    <label for="budget-other">Other:</label>
+                    <input type="number" id="budget-other" placeholder="e.g., 200" step="1.00">
+                </div>
+                <button type="submit" id="save-budgets-btn">Save Budgets</button>
+                <button type="button" id="close-budgets-btn" class="secondary-btn">Close</button>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2025 BudgetQuest. All rights reserved.</p>
+    </footer>
+
+    
+    <div id="quiz-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="close-quiz-btn">&times;</span>
+        <h2>Financial Literacy Quiz</h2>
+        <div id="quiz-container">
+            <p id="quiz-question">Loading question...</p>
+            <div id="quiz-options">
+                </div>
+            <p id="quiz-feedback" class="feedback-message"></p>
+            <button id="submit-answer-btn" class="action-btn">Submit Answer</button>
+            <button id="next-question-btn" class="action-btn" style="display:none;">Next Question</button>
+        </div>
+
+        <div id="quiz-results" style="display:none;">
+            <h3>Quiz Complete!</h3>
+            <p>You scored <span id="quiz-score">0</span> out of <span id="quiz-total-questions">0</span>.</p>
+            <button id="retake-quiz-btn" class="action-btn">Retake Quiz</button>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <div id="tutorial-overlay" class="modal tutorial-hidden">
+    <div id="tutorial-box" class="modal-content">
+    <span class="close-button" id="close-tutorial-btn">&times;</span> <p id="tutorial-text">Loading tutorial...</p>
+        <button id="tutorial-next-btn" class="action-btn">Next</button>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
